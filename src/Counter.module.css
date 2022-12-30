@@ -1,0 +1,60 @@
+.counterWrapper {
+    width: 250px;
+    margin: 100px auto;
+    border: 2px solid #dad6d6;
+    background: #F5F7FB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Roboto, sans-serif;
+}
+
+.counter {
+    width: 100px;
+    height: 45px;
+    background: aliceblue;
+    margin-top: 50px;
+    border-radius: 3px;
+    }
+
+.textCount{
+    margin: 12px 0 0 0;
+    font-size: 20px;
+    color: #3c3f41;
+}
+
+.counterRed {
+    background: #de5151;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.buttons button {
+    border: 0;
+    margin: 5px;
+    width: 78px;
+    height: 36px;
+    border-radius: 3px;
+}
+
+
+.default {
+    color: white;
+    background: #0066CC;
+}
+
+.default:hover {
+    background: #0080FF;
+}
+
+.default:active {
+        background: #0059B2;
+}
+
+.disabled {
+    background: #004D99;
+    opacity: 0.5;
+    color: #002E5C;
+}
