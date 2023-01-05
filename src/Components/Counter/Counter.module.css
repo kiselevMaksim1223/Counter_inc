@@ -62,3 +62,11 @@
     opacity: 0.5;
     color: #002E5C;
 }
+
+.error {
+    margin: 25px 0 0 0;
+    color: #de5151;
+    font-size: 20px;
+    /*#ffa8b9*/
+    /*background:#ffa8b9;*/
+}

@@ -6,6 +6,7 @@ type PropsType = {
     count: number
     startValueCount: number
     maxValueCount: number
+    error:boolean
 
     countValue: () => void
     ResetValue: () => void
@@ -32,7 +33,10 @@ export const Counter = (props: PropsType) => {
         <div className={s.counterWrapper}>
 
             <div className={`${s.counter} ${endCountClassname}`}>
-                <div className={`${s.textCount} ${endCountClassname}`}>{props.count}</div>
+            {/*<div className = {endCountClassname}>*/}
+                {props.error
+                    ? <div className={s.error}> Error! Incorrect value </div>
+                    : <div className={`${s.textCount} ${endCountClassname}`}>{props.count}</div> }
             </div>
 
             <div className={s.buttons}>

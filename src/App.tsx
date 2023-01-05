@@ -6,12 +6,15 @@ import {CounterSettings} from "./Components/Settings/CounterSettings";
 
 function App() {
 
-    let [startValueCount, setStartValueCount] = useState(0)
-    let [maxValueCount, setMaxValueCount] = useState(5)
-
+    let [startValueCount, setStartValueCount] = useState<number>(0)
+    let [maxValueCount, setMaxValueCount] = useState<number>(10)
     let [count, setCount] = useState<number>(startValueCount)
 
-    useEffect(() =>setCount(startValueCount), [startValueCount])
+    let [error, setError] = useState<boolean>(false)
+
+     //
+    useEffect(() => setCount(startValueCount), [startValueCount])
+    // useEffect(() => setError(true) ,[])
 
     const countValue = () => {
         setCount(count + 1)
@@ -22,15 +25,22 @@ function App() {
     }
 
     const setSettings = (startValue:number, maxValue:number) => {
-        setStartValueCount(startValue)
-        setMaxValueCount(maxValue)
+        startValue >= maxValue
+            ? setError(true)
+            : setStartValueCount(startValue)
+              setMaxValueCount(maxValue)
     }
 
     return (
         <div className={s.App}>
 
             <CounterSettings
+                error ={error}
+                setError={setError}
+                maxValueCount = {maxValueCount}
                 setSettings = {setSettings}
+                setStartValueCount ={setStartValueCount}
+                setMaxValueCount = {setMaxValueCount}
             />
 
             <Counter
@@ -39,9 +49,8 @@ function App() {
                 ResetValue={ResetValue}
                 startValueCount = {startValueCount}
                 maxValueCount = {maxValueCount}
+                error = {error}
             />
-
-
         </div>
     );
 }
