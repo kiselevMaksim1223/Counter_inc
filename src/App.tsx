@@ -1,27 +1,47 @@
-import React, {useState} from 'react';
-import './App.css';
-import {Counter} from "./Counter";
+import React, {useEffect, useState} from 'react';
+import s from './App.module.css';
+import {Counter} from "./Components/Counter/Counter";
+import {CounterSettings} from "./Components/Settings/CounterSettings";
 
 
 function App() {
 
-    let [count, setCount] = useState<number>(0)
+    let [startValueCount, setStartValueCount] = useState(0)
+    let [maxValueCount, setMaxValueCount] = useState(5)
+
+    let [count, setCount] = useState<number>(startValueCount)
+
+    useEffect(() =>setCount(startValueCount), [startValueCount])
 
     const countValue = () => {
         setCount(count + 1)
     }
 
     const ResetValue = () => {
-        setCount(0)
+        setCount(startValueCount)
+    }
+
+    const setSettings = (startValue:number, maxValue:number) => {
+        setStartValueCount(startValue)
+        setMaxValueCount(maxValue)
     }
 
     return (
-        <div className="App">
+        <div className={s.App}>
+
+            <CounterSettings
+                setSettings = {setSettings}
+            />
+
             <Counter
                 count={count}
                 countValue={countValue}
                 ResetValue={ResetValue}
+                startValueCount = {startValueCount}
+                maxValueCount = {maxValueCount}
             />
+
+
         </div>
     );
 }

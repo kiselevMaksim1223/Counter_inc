@@ -1,0 +1,16 @@
+.App {
+  width: 850px;
+  /*max-width: 100%;*/
+  text-align: center;
+  margin: 100px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
+
