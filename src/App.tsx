@@ -7,7 +7,8 @@ import {CounterSettings} from "./Components/Settings/CounterSettings";
 function App() {
 
     let [startValueCount, setStartValueCount] = useState<number>(0)
-    let [maxValueCount, setMaxValueCount] = useState<number>(10)
+    let [maxValueCount, setMaxValueCount] = useState<number>(5)
+
     let [count, setCount] = useState<number>(startValueCount)
 
     let [error, setError] = useState<boolean>(false)
@@ -37,6 +38,7 @@ function App() {
             <CounterSettings
                 error ={error}
                 setError={setError}
+                startValueCount = {startValueCount}
                 maxValueCount = {maxValueCount}
                 setSettings = {setSettings}
                 setStartValueCount ={setStartValueCount}
