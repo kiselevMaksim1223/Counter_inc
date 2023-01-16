@@ -11,10 +11,28 @@ function App() {
 
     let [count, setCount] = useState<number>(startValueCount)
 
-    let [error, setError] = useState<boolean>(false)
+    let [settingsError, setSettingsError] = useState<boolean>(false)
 
-     //
+    const [counterError, setCounterError] = useState<boolean>(false)
+
+
     useEffect(() => setCount(startValueCount), [startValueCount])
+
+    // useEffect(() => {(localStorage.setItem("startValue", JSON.stringify(startValueCount)))}, [startValueCount])
+    // useEffect(() => {localStorage.setItem("maxValue", JSON.stringify(maxValueCount))}, [maxValueCount])
+
+    useEffect(() => {
+        let startValueLocalStorage = localStorage.getItem("startValue")
+        startValueLocalStorage && setStartValueCount(JSON.parse(startValueLocalStorage))
+    }, [])
+
+    useEffect(() => {
+        let startValueLocalStorage = localStorage.getItem("maxValue")
+        startValueLocalStorage && setMaxValueCount(JSON.parse(startValueLocalStorage))
+    }, [])
+
+
+    // useEffect(() => setCountButtonDisable(true), [settingsError])
     // useEffect(() => setError(true) ,[])
 
     const countValue = () => {
@@ -26,18 +44,30 @@ function App() {
     }
 
     const setSettings = (startValue:number, maxValue:number) => {
-        startValue >= maxValue
-            ? setError(true)
-            : setStartValueCount(startValue)
-              setMaxValueCount(maxValue)
+
+
+        //здесь мы сетаем ошибку(даже не ошибку а дизейбл для кнопки) для окна настроек
+            startValue >= maxValue
+                ? (setSettingsError(true))
+                : setStartValueCount(startValue)
+            setMaxValueCount(maxValue)
+
+        //здесь мы сетаем ошибку для окна счечика
+            startValue < maxValue
+                ? setCounterError(false)
+                : setCounterError(true)
+
+
+        localStorage.setItem("startValue", JSON.stringify(startValue))
+        localStorage.setItem("maxValue", JSON.stringify(maxValue))
     }
 
     return (
         <div className={s.App}>
 
             <CounterSettings
-                error ={error}
-                setError={setError}
+                settingsError={settingsError}
+                setSettingsError={setSettingsError}
                 startValueCount = {startValueCount}
                 maxValueCount = {maxValueCount}
                 setSettings = {setSettings}
@@ -51,7 +81,8 @@ function App() {
                 ResetValue={ResetValue}
                 startValueCount = {startValueCount}
                 maxValueCount = {maxValueCount}
-                error = {error}
+                settingsError= {settingsError}
+                counterError= {counterError}
             />
         </div>
     );

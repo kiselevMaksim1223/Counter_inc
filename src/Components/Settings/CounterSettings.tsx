@@ -1,6 +1,6 @@
 import s from "./CounterSettings.module.css"
 import {Button} from "../Button/Button";
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 
 export type CounterSettingsPropType = {
     maxValueCount:number
@@ -9,14 +9,20 @@ export type CounterSettingsPropType = {
     setSettings: (startValue:number, maxValue:number) => void
     setStartValueCount:(start:number) => void
     setMaxValueCount:(max:number) => void
-    error:boolean
-    setError: (error:boolean) => void
+    settingsError:boolean
+    setSettingsError: (error:boolean) => void
 }
 
 export const CounterSettings = (props:CounterSettingsPropType) => {
 
     let refStartValue = useRef<HTMLInputElement>(null)
     let refMaxValue = useRef<HTMLInputElement>(null)
+
+
+    useEffect(() => {setStartValue(props.startValueCount)}, [props.startValueCount])
+    useEffect(() => {setMaxValue(props.maxValueCount)}, [props.maxValueCount])
+
+    //для начального отображения значений в инпуте
     let [startValue, setStartValue] = useState(props.startValueCount)
     let [maxValue, setMaxValue] = useState(props.maxValueCount)
 
@@ -26,21 +32,23 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
         // props.setSettings()
         if (refMaxValue.current && refStartValue.current){
             props.setSettings(+refStartValue.current.value, +refMaxValue.current.value)
+
         }
         // if (refStartValue.current){
         //     console.log(typeof +refStartValue.current.value)
         // }
+
     }
 
 
 
     const onChangeStartHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setStartValue(+e.currentTarget.value)
-        props.error && props.setError(false)
+        props.settingsError && props.setSettingsError(false)
     }
     const onChangeMaxHandler = (e:ChangeEvent<HTMLInputElement>) => {
         setMaxValue(+e.currentTarget.value)
-        props.error && props.setError(false)
+        props.settingsError && props.setSettingsError(false)
     }
 
     // const onChangeInputHandler = () => {
@@ -55,18 +63,20 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
     //     props.error && props.setError(false)
     // }
 
+    const settingsButtonClassName = props.settingsError ? s.disabled : s.default
+
     return (
         <div className={s.settingsWrapper}>
 
             <div className={s.settingsData}>
                 <div>
                     <div>Start value</div>
-                    <input value={startValue} ref={refStartValue} type={"number"} className={s.input} max={99} onChange={onChangeStartHandler}/>
+                    <input value={startValue} ref={refStartValue} type={"number"} className={s.input} onChange={onChangeStartHandler} max={99}/>
                     {/*<input value={startValue} onChange={onChangeStartHandler} type={"number"} className={s.input} max={99}/>*/}
                 </div>
                 <div>
                     <div>Max value value</div>
-                    <input value={maxValue} ref={refMaxValue} type={"number"} className={s.input} max={99} onChange={onChangeMaxHandler}/>
+                    <input value={maxValue} ref={refMaxValue} type={"number"} className={s.input} onChange={onChangeMaxHandler} max={99}/>
                     {/*<input value={maxValue} onChange={onChangeMaxHandler} type={"number"} className={s.input} max={99}/>*/}
                 </div>
             </div>
@@ -75,7 +85,8 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
 
                 <Button
                     callBack={onClickSetSettingsHandler}
-                    buttonClassName={s.default}
+                    buttonClassName={settingsButtonClassName}
+                    disabled={props.settingsError}
                 >
                     Set
                 </Button>
