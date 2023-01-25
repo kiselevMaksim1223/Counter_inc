@@ -1,5 +1,11 @@
 import {counterStateType} from "../../App";
-import {countReducer, countReducerIncAT, countReducerResAT, countReducerSetAT} from "./counter-reducer";
+import {
+    countReducer,
+    countReducerIncAT,
+    countReducerResAT,
+    countReducerSetAT,
+    setCounterErrorAT
+} from "./counter-reducer";
 
 
 test("count should increment on 1", () => {
@@ -10,7 +16,6 @@ test("count should increment on 1", () => {
             count:0
         },
         maxValueCount:5,
-        settingsError:false,
         counterError:false
     }
 
@@ -30,7 +35,6 @@ test("count should reset to start value", () => {
             count:4
         },
         maxValueCount:5,
-        settingsError:false,
         counterError:false
     }
 
@@ -43,27 +47,6 @@ test("count should reset to start value", () => {
     expect(endState.startValueCount.startValue).toBe(counterState.startValueCount.startValue)
 })
 
-test("count should settings error", () => {
-
-    const counterState:counterStateType = {
-        startValueCount:{
-            startValue: 0,
-            count:0
-        },
-        maxValueCount:5,
-        settingsError:false,
-        counterError:false
-    }
-
-    const action:countReducerSetAT = {type:"SET-SETTINGS",startValue:5, maxValue: 4}
-
-    const endState = countReducer(counterState, action)
-
-    expect(endState.settingsError).toBe(true)
-    expect(endState.settingsError).not.toBe(counterState.settingsError)
-    expect(endState.startValueCount.startValue).toBe(counterState.startValueCount.startValue)
-})
-
 test("count should set settings", () => {
 
     const counterState:counterStateType = {
@@ -72,7 +55,6 @@ test("count should set settings", () => {
             count:0
         },
         maxValueCount:5,
-        settingsError:false,
         counterError:false
     }
 
@@ -80,10 +62,29 @@ test("count should set settings", () => {
 
     const endState = countReducer(counterState, action)
 
-    expect(endState.settingsError).toBe(false)
-    expect(endState.startValueCount.count).toBe(0)
+    expect(endState.startValueCount.count).toBe(5)
     expect(endState.startValueCount.startValue).toBe(5)
     expect(endState.startValueCount.startValue).not.toBe(counterState.startValueCount.startValue)
     expect(endState.maxValueCount).toBe(10)
-
 })
+
+
+test("count should error", () => {
+
+    const counterState:counterStateType = {
+        startValueCount:{
+            startValue: 0,
+            count:0
+        },
+        maxValueCount:5,
+        counterError:false
+    }
+
+    const action:setCounterErrorAT = {type:"COUNTER-ERROR",startValue:5, maxValue: 3}
+
+    const endState = countReducer(counterState, action)
+
+    expect(endState.counterError).toBe(true)
+    expect(counterState.counterError).toBe(false)
+})
+

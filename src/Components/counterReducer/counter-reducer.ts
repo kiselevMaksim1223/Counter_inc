@@ -12,6 +12,7 @@ export type countReducerSetAT = {
     startValue: number
     maxValue: number
 }
+
 export type setCounterErrorAT = {
     type: "COUNTER-ERROR"
     startValue: number
@@ -35,21 +36,21 @@ export const countReducer = (countState: counterStateType, action: ActionType): 
             })
 
         case "SET-SETTINGS":
-            if (action.startValue >= action.maxValue) {
-                return {...countState, settingsError: true}
-            } else {
-                return {
-                    ...countState,
-                    startValueCount: {...countState.startValueCount, startValue: action.startValue, count:action.startValue},
-                    maxValueCount: action.maxValue
-                }
+            return {
+                ...countState,
+                startValueCount: {
+                    ...countState.startValueCount,
+                    startValue: action.startValue,
+                    count: action.startValue
+                },
+                maxValueCount: action.maxValue
             }
 
         case "COUNTER-ERROR":
-            if (action.startValue < action.maxValue) {
-                return {...countState, counterError: false}
-            } else {
+            if (action.startValue >= action.maxValue) {
                 return {...countState, counterError: true}
+            } else {
+                return {...countState, counterError: false}
             }
 
         default:

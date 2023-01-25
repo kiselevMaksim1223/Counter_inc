@@ -6,7 +6,6 @@ type PropsType = {
     count: number
     startValueCount: number
     maxValueCount: number
-    settingsError:boolean
     counterError:boolean
 
     countValueCallBack: () => void
@@ -16,17 +15,18 @@ type PropsType = {
 
 export const Counter = (props: PropsType) => {
 
+    // callBack, className, disable fo count button
     const onClickCountHandler = () => {
         props.countValueCallBack()
     }
 
     const ButtonCountDisable =
-        props.count === props.maxValueCount
+        (props.count === props.maxValueCount
         || props.counterError
         || props.startValueCount > 99
-        || props.maxValueCount > 99
+        || props.maxValueCount > 99)
         && true
-    // const ButtonCountDisable = props.count === props.maxValueCount && buttonDisable
+
     const ButtonCountClassname =
         props.count === props.maxValueCount
         || props.counterError
@@ -35,15 +35,18 @@ export const Counter = (props: PropsType) => {
             ? s.disabled
             : s.default
 
+    // callBack, className, disable fo reset button
     const onClickResetHandler = () => {
         props.ResetValueCallBack()
     }
+
     const ButtonResetDisable =
-        props.count === props.startValueCount
+        (props.count === props.startValueCount
         || props.counterError
         || props.startValueCount > 99
-        || props.maxValueCount > 99
+        || props.maxValueCount > 99)
         && true
+
     const ButtonResetClassname =
         props.count === props.startValueCount
         || props.counterError
@@ -58,11 +61,10 @@ export const Counter = (props: PropsType) => {
         <div className={s.counterWrapper}>
 
             <div className={`${s.counter} ${endCountClassname}`}>
-            {/*<div className = {endCountClassname}>*/}
                 {props.counterError
                     ? <div className={s.error}> Error! Incorrect value </div>
-                    :props.startValueCount > 99 || props.maxValueCount > 99
-                    ? <div className={s.errorValue}> Start value and max value should be less or equal then 99  </div>
+                    :(props.startValueCount > 99 || props.maxValueCount > 99)
+                    ? <div className={s.errorValue}> Start value and max value should be less or equal then 99 </div>
                     : <div className={`${s.textCount} ${endCountClassname}`}>{props.count}</div> }
             </div>
 
