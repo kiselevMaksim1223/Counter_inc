@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button} from "../Button/Button";
 import s from "./Counter.module.css"
 
@@ -9,15 +9,15 @@ type PropsType = {
     settingsError:boolean
     counterError:boolean
 
-    countValue: () => void
-    ResetValue: () => void
+    countValueCallBack: () => void
+    ResetValueCallBack: () => void
 }
 
 
 export const Counter = (props: PropsType) => {
 
     const onClickCountHandler = () => {
-        props.countValue()
+        props.countValueCallBack()
     }
 
     const ButtonCountDisable =
@@ -36,7 +36,7 @@ export const Counter = (props: PropsType) => {
             : s.default
 
     const onClickResetHandler = () => {
-        props.ResetValue()
+        props.ResetValueCallBack()
     }
     const ButtonResetDisable =
         props.count === props.startValueCount
@@ -70,7 +70,6 @@ export const Counter = (props: PropsType) => {
 
                 <Button
                         disabled={ButtonCountDisable}
-                        // disabled={buttonDisable}
                         callBack={onClickCountHandler}
                         buttonClassName={ButtonCountClassname}
                 >
@@ -84,7 +83,6 @@ export const Counter = (props: PropsType) => {
                 >
                     Reset
                 </Button>
-
 
             </div>
         </div>
