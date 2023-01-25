@@ -21,11 +21,11 @@ export const CounterSettings = (props: CounterSettingsPropType) => {
     }
 
     const onChangeStartHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(+e.currentTarget.value)
+        setStartValue(Number((e.currentTarget.value).replace(/[.]/g,"")))
         setButtonDisable(false)
     }
     const onChangeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(+e.currentTarget.value)
+        setMaxValue(Number((e.currentTarget.value).replace(/[.]/g,"")))
         setButtonDisable(false)
     }
 
