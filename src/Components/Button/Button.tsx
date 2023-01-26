@@ -3,7 +3,6 @@ type ButtonPropsType = {
     children: string
     disabled?:boolean
     buttonClassName?:string
-
 }
 
 export const Button = (props: ButtonPropsType) => {

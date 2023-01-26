@@ -32,11 +32,7 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
         // props.setSettings()
         if (refMaxValue.current && refStartValue.current){
             props.setSettings(+refStartValue.current.value, +refMaxValue.current.value)
-
         }
-        // if (refStartValue.current){
-        //     console.log(typeof +refStartValue.current.value)
-        // }
 
     }
 
@@ -51,18 +47,6 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
         props.settingsError && props.setSettingsError(false)
     }
 
-    // const onChangeInputHandler = () => {
-        // if (refMaxValue.current && refStartValue.current) {
-        //     let startValue = refStartValue.current.value
-        //     let maxValue = refMaxValue.current.value
-        //
-        //     props.setStartValueCount(+startValue)
-        //     props.setMaxValueCount(+maxValue)
-        // }
-
-    //     props.error && props.setError(false)
-    // }
-
     const settingsButtonClassName = props.settingsError ? s.disabled : s.default
 
     return (
@@ -72,12 +56,10 @@ export const CounterSettings = (props:CounterSettingsPropType) => {
                 <div>
                     <div>Start value</div>
                     <input value={startValue} ref={refStartValue} type={"number"} className={s.input} onChange={onChangeStartHandler} max={99}/>
-                    {/*<input value={startValue} onChange={onChangeStartHandler} type={"number"} className={s.input} max={99}/>*/}
                 </div>
                 <div>
                     <div>Max value value</div>
                     <input value={maxValue} ref={refMaxValue} type={"number"} className={s.input} onChange={onChangeMaxHandler} max={99}/>
-                    {/*<input value={maxValue} onChange={onChangeMaxHandler} type={"number"} className={s.input} max={99}/>*/}
                 </div>
             </div>
 

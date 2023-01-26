@@ -18,8 +18,6 @@ function App() {
 
     useEffect(() => setCount(startValueCount), [startValueCount])
 
-    // useEffect(() => {(localStorage.setItem("startValue", JSON.stringify(startValueCount)))}, [startValueCount])
-    // useEffect(() => {localStorage.setItem("maxValue", JSON.stringify(maxValueCount))}, [maxValueCount])
 
     useEffect(() => {
         let startValueLocalStorage = localStorage.getItem("startValue")
@@ -31,9 +29,6 @@ function App() {
         startValueLocalStorage && setMaxValueCount(JSON.parse(startValueLocalStorage))
     }, [])
 
-
-    // useEffect(() => setCountButtonDisable(true), [settingsError])
-    // useEffect(() => setError(true) ,[])
 
     const countValue = () => {
         setCount(count + 1)

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button} from "../Button/Button";
 import s from "./Counter.module.css"
 
@@ -21,12 +21,12 @@ export const Counter = (props: PropsType) => {
     }
 
     const ButtonCountDisable =
-        props.count === props.maxValueCount
+        (props.count === props.maxValueCount
         || props.counterError
         || props.startValueCount > 99
-        || props.maxValueCount > 99
+        || props.maxValueCount > 99)
         && true
-    // const ButtonCountDisable = props.count === props.maxValueCount && buttonDisable
+
     const ButtonCountClassname =
         props.count === props.maxValueCount
         || props.counterError
@@ -39,10 +39,10 @@ export const Counter = (props: PropsType) => {
         props.ResetValue()
     }
     const ButtonResetDisable =
-        props.count === props.startValueCount
+        (props.count === props.startValueCount
         || props.counterError
         || props.startValueCount > 99
-        || props.maxValueCount > 99
+        || props.maxValueCount > 99)
         && true
     const ButtonResetClassname =
         props.count === props.startValueCount
@@ -58,7 +58,6 @@ export const Counter = (props: PropsType) => {
         <div className={s.counterWrapper}>
 
             <div className={`${s.counter} ${endCountClassname}`}>
-            {/*<div className = {endCountClassname}>*/}
                 {props.counterError
                     ? <div className={s.error}> Error! Incorrect value </div>
                     :props.startValueCount > 99 || props.maxValueCount > 99
@@ -70,7 +69,6 @@ export const Counter = (props: PropsType) => {
 
                 <Button
                         disabled={ButtonCountDisable}
-                        // disabled={buttonDisable}
                         callBack={onClickCountHandler}
                         buttonClassName={ButtonCountClassname}
                 >
