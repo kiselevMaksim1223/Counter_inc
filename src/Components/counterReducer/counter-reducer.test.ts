@@ -7,17 +7,19 @@ import {
     setCounterErrorAT
 } from "./counter-reducer";
 
+let counterState:counterStateType
+
+beforeEach(() =>{
+    counterState = {
+        startValueCount: {
+            startValue: 0,
+            count: 0
+        },
+        maxValueCount: 5,
+        counterError: false
+    }})
 
 test("count should increment on 1", () => {
-
-    const counterState:counterStateType = {
-        startValueCount:{
-            startValue: 0,
-            count:0
-        },
-        maxValueCount:5,
-        counterError:false
-    }
 
     const action:countReducerIncAT = {type:"INCREMENT"}
 
@@ -29,15 +31,6 @@ test("count should increment on 1", () => {
 
 test("count should reset to start value", () => {
 
-    const counterState:counterStateType = {
-        startValueCount:{
-            startValue: 0,
-            count:4
-        },
-        maxValueCount:5,
-        counterError:false
-    }
-
     const action:countReducerResAT = {type:"RESET"}
 
     const endState = countReducer(counterState, action)
@@ -48,15 +41,6 @@ test("count should reset to start value", () => {
 })
 
 test("count should set settings", () => {
-
-    const counterState:counterStateType = {
-        startValueCount:{
-            startValue: 0,
-            count:0
-        },
-        maxValueCount:5,
-        counterError:false
-    }
 
     const action:countReducerSetAT = {type:"SET-SETTINGS",startValue:5, maxValue: 10}
 
@@ -70,15 +54,6 @@ test("count should set settings", () => {
 
 
 test("count should error", () => {
-
-    const counterState:counterStateType = {
-        startValueCount:{
-            startValue: 0,
-            count:0
-        },
-        maxValueCount:5,
-        counterError:false
-    }
 
     const action:setCounterErrorAT = {type:"COUNTER-ERROR",startValue:5, maxValue: 3}
 

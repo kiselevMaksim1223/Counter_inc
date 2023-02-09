@@ -1,13 +1,14 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import s from './App.module.css';
 import {Counter} from "./Components/Counter/Counter";
 import {CounterSettings} from "./Components/Settings/CounterSettings";
 import {
-    countReducer,
     countReducerIncAC,
     countReducerResAC,
     countReducerSetAC, setCounterErrorAC
 } from "./Components/counterReducer/counter-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./Components/Redux/Store";
 
 type startValueType = {
     startValue: number
@@ -20,19 +21,10 @@ export type counterStateType = {
     counterError:boolean
 }
 
-export const initialCounterState:counterStateType = {
-    startValueCount:{
-        startValue: 0,
-        count:0
-    },
-    maxValueCount:5,
-    counterError:false
-}
+function AppWithRedux() {
 
-function App() {
-
-    const [counterState, dispatch] = useReducer(countReducer, initialCounterState)
-    const count = counterState.startValueCount.count
+    const counterState = useSelector<AppRootStateType, counterStateType>(state => state.counterState)
+    const dispatch = useDispatch()
 
     const countValue = () => {
         dispatch(countReducerIncAC())
@@ -56,7 +48,7 @@ function App() {
                 setSettingsCallBack= {setSettings}
             />
             <Counter
-                count={count}
+                count={counterState.startValueCount.count}
                 countValueCallBack={countValue}
                 ResetValueCallBack={ResetValue}
                 startValueCount = {counterState.startValueCount.startValue}
@@ -67,4 +59,4 @@ function App() {
     );
 }
 
-export default App;
+export default AppWithRedux;

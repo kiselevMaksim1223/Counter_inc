@@ -11,9 +11,9 @@ export type CounterSettingsPropType = {
 export const CounterSettings = (props: CounterSettingsPropType) => {
 
     //для начального отображения значений в инпуте
-    let [startValue, setStartValue] = useState<number>(props.startValueCount)
-    let [maxValue, setMaxValue] = useState<number>(props.maxValueCount)
-    let [buttonDisable, setButtonDisable] = useState<boolean>(false)
+    const [startValue, setStartValue] = useState<number>(props.startValueCount)
+    const [maxValue, setMaxValue] = useState<number>(props.maxValueCount)
+    const [buttonDisable, setButtonDisable] = useState<boolean>(false)
 
     const onClickSetSettingsHandler = () => {
         props.setSettingsCallBack(startValue, maxValue)
